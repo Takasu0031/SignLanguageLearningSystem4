@@ -1,0 +1,71 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace SignLanguageLearningSystem4
+{
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+            //このウィンドウを画面の左上に表示する
+            Top = 0;
+            Left = 0;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            //ページ左側単語リストの作成
+            WordList.Items.Clear();
+           foreach (string wordname_jp in WordIndex.WordnameList)
+            {
+                WordList.Items.Add(wordname_jp);
+            }
+        }
+
+        private void ResetMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            //"回数のリセット"
+        }
+
+        private void NameMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            //"名前変更"
+        }
+
+        private void StatisticsMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            //"統計分析"
+        }
+
+        private void WordList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //"単語選択"
+        }
+
+        private void MasterMovie_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            //"Master動画再生"
+        }
+
+        private void LearnButton_Click(object sender, RoutedEventArgs e)
+        {
+            //"学習開始"
+        }
+    }
+}

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignLanguageLearningSystem4", "SignLanguageLearningSystem4.csproj", "{44887396-F144-4D50-85E5-6A24106D6BF1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44887396-F144-4D50-85E5-6A24106D6BF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44887396-F144-4D50-85E5-6A24106D6BF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44887396-F144-4D50-85E5-6A24106D6BF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44887396-F144-4D50-85E5-6A24106D6BF1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E8824CDA-5B81-4A68-B51B-5CE17921A6C4}
+	EndGlobalSection
+EndGlobal
