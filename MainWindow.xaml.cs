@@ -60,10 +60,23 @@ namespace SignLanguageLearningSystem4
             string wordname_jp = Convert.ToString(WordList.SelectedItem);
             int index = WordIndex.WordnamejpToIndex(wordname_jp);
 
+            //動画の設定
+            string moviefilename = "MasterModelData\\" + WordIndex.IndexToWordname(index) + "\\movie.avi";
+            var uri = new Uri(moviefilename, UriKind.RelativeOrAbsolute);
+            MasterMovie.Source = uri;
+            MasterMovie.Play();
+
+            //説明部分の設定
+            Wordname_XAML.Text = index.ToString() + ". " + wordname_jp;
+            Explanation_XAML.Text = "";
+            string exp = WordIndex.IndexToExplanation(index);
+            Explanation_XAML.Text += exp;
+
+
             //学習時に使うデータとして保存
             SaveConfigData.setWordname_jp(wordname_jp);
             SaveConfigData.setWordname(WordIndex.IndexToWordname(index));
-            SaveConfigData.setWordnameList(WordIndex.IndexToWordnameList(index));
+            //SaveConfigData.setWordnameList(WordIndex.IndexToWordnameList(index));
         }
 
         private void MasterMovie_MediaEnded(object sender, RoutedEventArgs e)

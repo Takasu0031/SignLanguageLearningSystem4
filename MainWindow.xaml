@@ -38,8 +38,8 @@
                 <MediaElement x:Name="MasterMovie" Width="960" Height="540"  
                       MediaEnded="MasterMovie_MediaEnded" LoadedBehavior="Manual" UnloadedBehavior="Stop" Margin="140,10,10,0"
                  />
-                <TextBlock x:Name="Explanation_XAML" Margin="5,0,0,0" Text="動きの説明:&#10;" FontSize="40" TextWrapping="Wrap" Width="200"/>
-                <TextBlock Width="900"/>
+                <TextBlock  Margin="5,0,0,0" Text="動きの説明:&#10;" FontSize="40" TextWrapping="Wrap" Width="200"/>
+                <TextBlock x:Name="Explanation_XAML" Width="900" FontSize="40"/>
                 <Button x:Name="LearnButton" Content="学習開始" FontSize="70" Click="LearnButton_Click" Width="350" Height="120" Margin="800,50,0,0"/>
             </WrapPanel>
         </Border>
