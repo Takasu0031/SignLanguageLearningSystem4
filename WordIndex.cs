@@ -2,6 +2,7 @@
 using System.Linq;
 using System.IO;
 using System.Text;
+using SLLSFunction;
 
 namespace SignLanguageLearningSystem4
 {
@@ -20,13 +21,8 @@ namespace SignLanguageLearningSystem4
         private static WordData[] ReadCSV()
         {
             string csvPath = @"config\WordList.csv";
-            StreamReader sr = new StreamReader(csvPath, Encoding.Default);
-            List<string> datas = new List<string>();
-            while (sr.EndOfStream == false)
-            {
-                datas.Add(sr.ReadLine());
-            }
-            WordData[] retDatas = new WordData[datas.Count];
+            List<string> datas = FileIO.FileTextsInput(csvPath);
+            var retDatas = new WordData[datas.Count];
             if (datas.Any())
             {
                 int i = 0;

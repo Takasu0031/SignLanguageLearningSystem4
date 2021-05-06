@@ -56,6 +56,14 @@ namespace SignLanguageLearningSystem4
         private void WordList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //"単語選択"
+            //選択した単語名とindexを保存
+            string wordname_jp = Convert.ToString(WordList.SelectedItem);
+            int index = WordIndex.WordnamejpToIndex(wordname_jp);
+
+            //学習時に使うデータとして保存
+            SaveConfigData.setWordname_jp(wordname_jp);
+            SaveConfigData.setWordname(WordIndex.IndexToWordname(index));
+            SaveConfigData.setWordnameList(WordIndex.IndexToWordnameList(index));
         }
 
         private void MasterMovie_MediaEnded(object sender, RoutedEventArgs e)
