@@ -81,7 +81,9 @@ namespace SignLanguageLearningSystem4
 
         private void MasterMovie_MediaEnded(object sender, RoutedEventArgs e)
         {
-            //"Master動画再生"
+            //"Master動画再生終了"
+            MasterMovie.Position = TimeSpan.FromMilliseconds(1);
+            MasterMovie.Play();
         }
 
         private void LearnButton_Click(object sender, RoutedEventArgs e)
