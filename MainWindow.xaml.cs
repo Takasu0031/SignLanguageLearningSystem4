@@ -59,7 +59,7 @@ namespace SignLanguageLearningSystem4
             //選択した単語名とindexを保存
             string wordname_jp = Convert.ToString(WordList.SelectedItem);
             int index = WordIndex.WordnamejpToIndex(wordname_jp);
-
+            
             //動画の設定
             string moviefilename = "MasterModelData\\" + WordIndex.IndexToWordname(index) + "\\movie.avi";
             var uri = new Uri(moviefilename, UriKind.RelativeOrAbsolute);
@@ -89,6 +89,7 @@ namespace SignLanguageLearningSystem4
         private void LearnButton_Click(object sender, RoutedEventArgs e)
         {
             //"学習開始"
+            MasterMovie.Stop();
         }
     }
 }
