@@ -1,17 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using System.Diagnostics;
+using System.IO;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using SLLSFunction;
 
 namespace SignLanguageLearningSystem4
 {
@@ -26,70 +19,72 @@ namespace SignLanguageLearningSystem4
             //このウィンドウを画面の左上に表示する
             Top = 0;
             Left = 0;
+            frame.Source = _uriList[0];
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private NavigationService _navi;
+        private List<Uri> _uriList = new List<Uri>() {
+            new Uri("Page1.xaml",UriKind.Relative),
+            new Uri("Page2.xaml",UriKind.Relative),
+            new Uri("Page3.xaml",UriKind.Relative),
+        };
+
+        public static string Username { get; private set; }
+        public static string Wordname { get; private set; }
+        public static string Wordname_jp { get; private set; }
+        public static int Mode { get; private set; }
+        public static int CountdownNumber { get; private set; }
+        public static int Notepc { get; private set; } = 1;
+        public static List<string> wordnameList { get; private set; }
+        public static int Compound_Mode { get; private set; }
+
+        public static string saveDirectory { get; set; }
+        public static int ScoreCount;
+        public static List<ScoreTableData> ScoreValue = new List<ScoreTableData>();
+        public static List<ScoreTableData> preScoreValue = new List<ScoreTableData>();
+
+
+        private void Frame_Loaded(object sender, RoutedEventArgs e)
         {
-            //ページ左側単語リストの作成
-            WordList.Items.Clear();
-           foreach (string wordname_jp in WordIndex.WordnameList)
+            Username = Properties.Settings.Default.user_Name;
+            Mode = Properties.Settings.Default.Record_Mode;
+            CountdownNumber = Properties.Settings.Default.CountDown_Time - 1;
+            if (Properties.Settings.Default.Lightweight_Mode == true)
             {
-                WordList.Items.Add(wordname_jp);
+                Notepc = 3;
+            }
+
+            Wordname = SaveConfigData.wordname;
+            Wordname_jp = SaveConfigData.wordname_jp;
+            wordnameList = SaveConfigData.wordnameList;
+            Compound_Mode = wordnameList.Count;
+            ScoreValue = new List<ScoreTableData>();
+            preScoreValue = new List<ScoreTableData> {
+                new ScoreTableData(),
+                new ScoreTableData(),
+                new ScoreTableData()
+            };
+
+            StartFlow();
+            //_navi.Navigate(_uriList[0]);
+        }
+
+        private void StartFlow()
+        {
+            FileIO.FileOutputText(@"3DModel\Tag.txt", "0");
+
+            //imageフォルダの中の画像の削除
+            string directry = @"image";
+            FileIO.DeleteDirectryFile(directry);
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            foreach (Process pafter in Process.GetProcessesByName("DepthResult"))
+            {
+                pafter.Kill();
             }
         }
 
-        private void ResetMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            //"回数のリセット"
-        }
-
-        private void NameMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            //"名前変更"
-        }
-
-        private void StatisticsMenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            //"統計分析"
-        }
-
-        private void WordList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //"単語選択"
-            //選択した単語名とindexを保存
-            string wordname_jp = Convert.ToString(WordList.SelectedItem);
-            int index = WordIndex.WordnamejpToIndex(wordname_jp);
-            
-            //動画の設定
-            string moviefilename = "MasterModelData\\" + WordIndex.IndexToWordname(index) + "\\movie.avi";
-            var uri = new Uri(moviefilename, UriKind.RelativeOrAbsolute);
-            MasterMovie.Source = uri;
-            MasterMovie.Play();
-
-            //説明部分の設定
-            Wordname_XAML.Text = index.ToString() + ". " + wordname_jp;
-            Explanation_XAML.Text = "";
-            string exp = WordIndex.IndexToExplanation(index);
-            Explanation_XAML.Text += exp;
-
-
-            //学習時に使うデータとして保存
-            SaveConfigData.setWordname_jp(wordname_jp);
-            SaveConfigData.setWordname(WordIndex.IndexToWordname(index));
-            //SaveConfigData.setWordnameList(WordIndex.IndexToWordnameList(index));
-        }
-
-        private void MasterMovie_MediaEnded(object sender, RoutedEventArgs e)
-        {
-            //"Master動画再生終了"
-            MasterMovie.Position = TimeSpan.FromMilliseconds(1);
-            MasterMovie.Play();
-        }
-
-        private void LearnButton_Click(object sender, RoutedEventArgs e)
-        {
-            //"学習開始"
-            MasterMovie.Stop();
-        }
     }
 }
